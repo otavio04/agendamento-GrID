@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento Lab Pesquisa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agendamento de Laboratório</h1>
+        <p>Selecione uma máquina e reserve seus blocos de pesquisa.</p>
+    </header>
+
+    <main>
+        <section class="controles">
+            <div class="linha">
+                <label for="data">Data:</label>
+                <input type="date" id="data" value="2026-01-05">
+
+                <label for="maquina">Computador:</label>
+                <select id="maquina">
+                    <option value="1">Computador 01</option>
+                    <option value="2">Computador 02</option>
+                    <option value="3">Computador 03</option>
+                    <option value="4">Computador 04</option>
+                    <option value="5">Computador 05</option>
+                </select>
+            </div>
+            
+            <div class="linha-seguranca">
+                <input type="text" id="matricula" placeholder="Sua Matrícula">
+                <input type="text" id="orientador" placeholder="Nome do Orientador">
+                <input type="password" id="senha-lab" placeholder="Senha do Lab">
+            </div>
+        </section>
+
+        <section class="agenda">
+            <table id="tabela-horarios">
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-agenda">
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
