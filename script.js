@@ -45,35 +45,29 @@ function atualizarAgenda() {
 }
 
 async function acao(tipo, chave) {
-    // Captura os valores dos campos da página
     const nome = document.getElementById('nome').value;
-    const matricula = document.getElementById('matricula').value;
+    const matricula = document.getElementById('email').value;
     const orientador = document.getElementById('orientador').value;
     const senhaInformada = document.getElementById('senha-lab').value;
+    const dataSelecionada = seletorData.value;
+    const maquinaSelecionada = seletorMaquina.options[seletorMaquina.selectedIndex].text;
 
-    // 1. Validação de Senha (para qualquer ação)
     if (senhaInformada !== SENHA_CORRETA) {
         alert("Senha do laboratório incorreta!");
         return;
     }
 
-    // 2. Validação de campos vazios (apenas para reserva)
     if (tipo === 'reservar') {
         if (!nome || !matricula || !orientador) {
-            alert("Por favor, preencha todos os campos (Nome, Matrícula e Orientador) antes de reservar.");
+            alert("Preencha todos os campos antes de reservar.");
             return;
         }
     }
 
-    // 3. Confirmação de cancelamento
-    if (tipo === 'cancelar') {
-        if (!confirm("Deseja realmente cancelar esta reserva?")) return;
-    }
+    if (tipo === 'cancelar' && !confirm("Deseja cancelar?")) return;
 
-    // Exibe um feedback visual simples de carregamento
     corpoAgenda.style.opacity = "0.5";
 
-    // 4. Envio para o Google Sheets
     try {
         await fetch(URL_API, {
             method: 'POST',
@@ -81,18 +75,17 @@ async function acao(tipo, chave) {
                 action: tipo, 
                 chave: chave, 
                 nome: nome,
-                matricula: matricula,
-                orientador: orientador
+                matricula: email,
+                orientador: orientador,
+                dataAgendamento: dataSelecionada, // Novo dado
+                maquina: maquinaSelecionada       // Novo dado
             })
         });
 
-        // Limpa a senha para segurança, mas mantém os dados do aluno para facilitar se ele quiser reservar mais blocos
         document.getElementById('senha-lab').value = ""; 
-        
-        // Recarrega os dados da planilha
         await carregarReservas();
     } catch (error) {
-        alert("Erro ao processar a solicitação. Tente novamente.");
+        alert("Erro na conexão.");
     } finally {
         corpoAgenda.style.opacity = "1";
     }
