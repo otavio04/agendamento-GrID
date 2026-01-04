@@ -22,7 +22,7 @@ function atualizarAgenda() {
     const dataSelecionada = seletorData.value;
     const maquinaSelecionada = seletorMaquina.value;
 
-    for (let hora = 8; hora < 20; hora++) {
+    for (let hora = 0; hora < 24; hora++) {
         const horarioFormatado = `${hora}:00 - ${hora + 1}:00`;
         const chaveReserva = `${dataSelecionada}-M${maquinaSelecionada}-${hora}`;
         const nomeReserva = reservasGlobais[chaveReserva];
