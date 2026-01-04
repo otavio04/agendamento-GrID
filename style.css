@@ -1,82 +1,190 @@
-/* Seção Geral de Controles */
+/* Configurações Gerais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #7f8c8d;
+}
+
+/* Painel de Controles e Formulário */
 .controles {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 20px;
+    margin: 0 auto 30px auto;
+    max-width: 900px;
     background: #ffffff;
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave no painel */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* Linha superior (Data e Máquina) */
+/* Linha de Data e Máquina */
 .linha {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
-/* Linha de Identificação (Nome, E-mail, Orientador) */
+.linha label {
+    font-weight: bold;
+    color: #34495e;
+}
+
+/* Linha de Dados do Aluno (Nome, Email, Orientador) */
 .linha-seguranca {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
 }
 
+input, select {
+    padding: 10px 15px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
 .linha-seguranca input {
     flex: 1;
     min-width: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
 }
 
-/* Área de Confirmação (Senha e Botão) */
+input:focus, select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Área de Ação (Senha + Botão) */
 .area-confirmacao {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 10px;
     padding-top: 20px;
     border-top: 1px solid #eee;
     width: 100%;
 }
 
-/* O destaque suave na borda da senha */
 #senha-lab {
-    padding: 10px;
-    border: 2px solid #3498db; 
-    border-radius: 6px;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.1);
-    outline: none;
-    width: 150px; /* Largura fixa para a senha não ficar gigante */
+    border: 2px solid #3498db; /* Destaque azul suave solicitado */
+    width: 180px;
+    font-weight: bold;
+    text-align: center;
 }
 
 #btn-confirmar {
-    padding: 10px 30px;
-    background-color: #2ecc71;
+    padding: 12px 30px;
+    background-color: #27ae60;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 15px;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(39, 174, 96, 0.2);
 }
 
 #btn-confirmar:hover {
-    background-color: #27ae60;
+    background-color: #219150;
     transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+#btn-confirmar:active {
+    transform: translateY(0);
 }
 
 #btn-confirmar:disabled {
     background-color: #bdc3c7;
     cursor: not-allowed;
+    transform: none;
+}
+
+/* Tabela de Horários */
+.agenda {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #f1f2f6;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Status das Vagas */
+.disponivel {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.ocupado {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Checkbox estilizado */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
 }
