@@ -21,13 +21,11 @@
 
                 <label for="maquina">Computador:</label>
                 <select id="maquina">
-                    <option value="1">Computador 01 - Alto desempenho</option>
-                    <option value="2">Computador 02 - Alto desempenho</option>
-                    <option value="3">Computador 03 - Básico</option>
-                    <option value="4">Computador 04 - Básico</option>
-                    <option value="5">Computador 05 - Básico</option>
-                    <option value="6">Computador 06 - FLEXPAVE</option>
-                    <option value="7">Mesa de reuniões</option>
+                    <option value="1">Computador 01</option>
+                    <option value="2">Computador 02</option>
+                    <option value="3">Computador 03</option>
+                    <option value="4">Computador 04</option>
+                    <option value="5">Computador 05</option>
                 </select>
             </div>
             
@@ -35,12 +33,14 @@
                 <input type="text" id="nome" placeholder="Nome Completo">
                 <input type="email" id="email" placeholder="Seu E-mail">
                 <input type="text" id="orientador" placeholder="Nome do Orientador">
-                <input type="password" id="senha-lab" placeholder="Senha do Lab">
             </div>
 
-            <button id="btn-confirmar" onclick="reservarSelecionados()" style="margin-top: 15px; padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                Confirmar Reservas Selecionadas
-            </button>
+            <div class="area-confirmacao">
+                <input type="password" id="senha-lab" placeholder="Senha do Lab">
+                <button id="btn-confirmar" onclick="reservarSelecionados()">
+                    Confirmar Reservas Selecionadas
+                </button>
+            </div>
         </section>
 
         <section class="agenda">
