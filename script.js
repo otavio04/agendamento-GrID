@@ -1,4 +1,3 @@
-const SENHA_CORRETA = "Gr!D"; // DEFINA SUA SENHA AQUI
 const URL_API = "https://script.google.com/macros/s/AKfycbxbLYAFBdVjsyz3P7rQA5WF610FxjWC68ZD-xY9zzBKNgJ98qyBF_iGZD5C2mgJ0rWa/exec";
 
 const corpoAgenda = document.getElementById('corpo-agenda');
@@ -62,31 +61,27 @@ async function reservarSelecionados() {
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const orientador = document.getElementById('orientador').value;
-    const senha = document.getElementById('senha-lab').value;
-    const dataTxt = seletorData.value;
+    const senhaInformada = document.getElementById('senha-lab').value; // Pegamos a senha do campo
+    const dataTxt = document.getElementById('data').value;
     const maquinaTxt = seletorMaquina.options[seletorMaquina.selectedIndex].text;
 
-    // Validações
-    if (senha !== SENHA_CORRETA) return alert("Senha incorreta!");
-    if (!nome || !email || !orientador) return alert("Preencha todos os seus dados!");
+    if (!senhaInformada) return alert("Digite a senha do laboratório!");
+    if (!nome || !email || !orientador) return alert("Preencha todos os dados!");
 
     const selecionados = document.querySelectorAll('.chk-reserva:checked');
-    if (selecionados.length === 0) return alert("Selecione pelo menos um horário!");
+    if (selecionados.length === 0) return alert("Selecione os horários!");
 
-    if (!confirm(`Deseja confirmar ${selecionados.length} reserva(s)?`)) return;
-
-    // Desativa o botão para evitar cliques duplos
     const btn = document.getElementById('btn-confirmar');
     btn.disabled = true;
-    btn.innerText = "Processando...";
+    btn.innerText = "Validando e Reservando...";
 
-    // Envia cada reserva para a planilha
     for (let chk of selecionados) {
         try {
-            await fetch(URL_API, {
+            const response = await fetch(URL_API, {
                 method: 'POST',
                 body: JSON.stringify({ 
                     action: 'reservar', 
+                    senha: senhaInformada, // Enviamos a senha para o Google validar
                     chave: chk.value, 
                     nome: nome,
                     email: email,
@@ -95,12 +90,21 @@ async function reservarSelecionados() {
                     maquina: maquinaTxt
                 })
             });
+
+            const resultado = await response.text();
+            
+            if (resultado.includes("Erro: Senha Incorreta")) {
+                alert("A senha informada está incorreta!");
+                btn.disabled = false;
+                btn.innerText = "Confirmar Reservas Selecionadas";
+                return; // Para o loop imediatamente
+            }
         } catch (e) {
-            console.error("Erro ao reservar bloco: " + chk.value);
+            console.error("Erro na reserva");
         }
     }
 
-    alert("Reservas concluídas!");
+    alert("Reservas concluídas com sucesso!");
     document.getElementById('senha-lab').value = "";
     btn.disabled = false;
     btn.innerText = "Confirmar Reservas Selecionadas";
